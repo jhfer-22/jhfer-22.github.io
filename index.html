@@ -1,32 +1,28 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Tracker</title>
+  <title>My Personal Projects</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Academic & Personal Project Tracker</h1>
+
+  <header class="site-header">
+    <h1>My Personal Projects</h1>
+    <p>Explore the projects I've built, from web apps to experiments.</p>
   </header>
 
   <main>
-    <form id="project-form">
-      <input type="text" id="title" placeholder="Project Title" required>
-      <input type="date" id="due-date" placeholder="Due Date">
-      <select id="status">
-        <option value="planned">Planned</option>
-        <option value="in-progress">In Progress</option>
-        <option value="completed">Completed</option>
-      </select>
-      <button type="submit">Add Project</button>
-    </form>
-
-    <section id="projects">
-      <!-- Projects will be injected here -->
+    <section id="projects" class="projects-grid">
+      <!-- Project cards will be injected here by script.js -->
     </section>
   </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Your Name</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
