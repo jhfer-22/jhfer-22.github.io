@@ -1,56 +1,52 @@
-const form = document.getElementById('project-form');
-const projectsEl = document.getElementById('projects');
-let projects = JSON.parse(localStorage.getItem('projects')) || [];
+const projects = [
+  {
+    title: 'Portfolio Website',
+    description: 'A responsive, modern portfolio built with HTML, CSS, and JavaScript.',
+    image: 'images/portfolio.png',
+    link: 'https://github.com/yourname/portfolio'
+  },
+  {
+    title: 'Task Manager App',
+    description: 'A full-stack task manager using Node.js, Express, MongoDB.',
+    image: 'images/task-manager.png',
+    link: 'https://github.com/yourname/task-manager'
+  },
+  {
+    title: 'Weather Dashboard',
+    description: 'An interactive weather app consuming OpenWeatherMap API.',
+    image: 'images/weather-dashboard.png',
+    link: 'https://github.com/yourname/weather-dashboard'
+  }
+];
 
-function saveAndRender() {
-  localStorage.setItem('projects', JSON.stringify(projects));
-  renderProjects();
-}
+const container = document.getElementById('projects');
 
-function renderProjects() {
-  projectsEl.innerHTML = '';
-  projects.forEach((p, i) => {
-    const div = document.createElement('div');
-    div.className = `project ${p.status}`;
-    div.innerHTML = `
-      <div>
-        <strong>${p.title}</strong> (${p.dueDate || 'No due date'})
-      </div>
-      <div>
-        <select data-index="${i}" class="status-select">
-          <option value="planned" ${p.status==='planned'?'selected':''}>Planned</option>
-          <option value="in-progress" ${p.status==='in-progress'?'selected':''}>In Progress</option>
-          <option value="completed" ${p.status==='completed'?'selected':''}>Completed</option>
-        </select>
-        <button data-index="${i}" class="delete-btn">&times;</button>
-      </div>
-    `;
-    projectsEl.appendChild(div);
-  });
-  document.querySelectorAll('.delete-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      projects.splice(btn.dataset.index, 1);
-      saveAndRender();
-    });
-  });
-  document.querySelectorAll('.status-select').forEach(sel => {
-    sel.addEventListener('change', () => {
-      projects[sel.dataset.index].status = sel.value;
-      saveAndRender();
-    });
-  });
-}
+projects.forEach(proj => {
+  const card = document.createElement('div');
+  card.className = 'project-card';
 
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  const title = document.getElementById('title').value.trim();
-  const dueDate = document.getElementById('due-date').value;
-  const status = document.getElementById('status').value;
-  if (!title) return;
-  projects.push({ title, dueDate, status });
-  form.reset();
-  saveAndRender();
+  const img = document.createElement('img');
+  img.src = proj.image;
+  img.alt = proj.title;
+  card.appendChild(img);
+
+  const content = document.createElement('div');
+  content.className = 'project-content';
+
+  const h3 = document.createElement('h3');
+  h3.textContent = proj.title;
+  content.appendChild(h3);
+
+  const p = document.createElement('p');
+  p.textContent = proj.description;
+  content.appendChild(p);
+
+  const a = document.createElement('a');
+  a.href = proj.link;
+  a.target = '_blank';
+  a.textContent = 'View on GitHub';
+  content.appendChild(a);
+
+  card.appendChild(content);
+  container.appendChild(card);
 });
-
-// initial render
-renderProjects();
